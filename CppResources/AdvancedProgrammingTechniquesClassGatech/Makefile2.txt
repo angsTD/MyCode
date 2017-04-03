@@ -1,0 +1,34 @@
+# Makefile for ECE8893, 2D FFT assignment
+
+#CXX      = /usr/lib64/openmpi/bin/mpic++
+CXX      = /usr/bin/mpic++
+CXXFLAGS = -Wall -g
+
+fft2d:	fft2d.o Complex.o InputImage.o
+
+fft2d.o:	fft2d.cc
+
+Complex.o:	Complex.cc Complex.h
+
+InputImage.o:	InputImage.cc InputImage.h
+
+clean:
+	@rm *.o fft2d
+
+# Rules for automatically building targets
+
+# Note use of $* and $*.cc in the rule below
+%o:	%.cc
+	@echo Compiling $*
+	$(CXX) $(CXXFLAGS) -c $*.cc
+
+%o:	%.c
+	@echo Compiling $*
+	$(CC) $(CFLAGS) -c $*.c
+
+# Note use of $* and $< in th erule below
+%:	%.o
+	@echo Linking $*
+	$(CXX) -o $* $< $(LDFLAGS)
+
+

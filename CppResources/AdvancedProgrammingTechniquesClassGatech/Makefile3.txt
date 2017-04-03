@@ -1,0 +1,55 @@
+# Makefile for OPENGL examples
+
+CFLAGS   = -gstabs -I. -I$(HOME)/Software/OpenGLLinks
+CXXFLAGS = -gstabs -I. -I$(HOME)/Software/OpenGLLinks
+LDFLAGS  = -g -framework Carbon -framework GLUT -framework OpenGL
+
+#CXX = /Developer/usr/bin/g++-4.0
+#CC  = /Developer/usr/bin/gcc-4.0
+CXX = /usr/bin/g++
+CC  = /usr/bin/gcc
+
+CCSOURCES   := $(wildcard *.cc)
+# Remove a couple
+CCSOURCES   := $(subst mjkimage.cc,,$(CCSOURCES))
+CCSOURCES   := $(subst trackball.cc,,$(CCSOURCES))
+
+CCOBJECTS   := $(subst .cc,.o,$(CCSOURCES))
+CCTARGETS   := $(subst .cc,,$(CCSOURCES))
+
+# C sources/objects/targets
+CSOURCES    := $(wildcard *.cc)
+COBJECTS    := $(subst .c,.o,$(CSOURCES))
+CTARGETS    := $(subst .c,,$(CSOURCES))
+
+%o:	%.cc
+	@echo Compiling $*
+	$(CXX) $(CXXFLAGS) -c $*.cc
+
+%o:	%.c
+	@echo Compiling $*
+	$(CC) $(CFLAGS) -c $*.c
+
+%:	%.o
+	@echo Linking $*
+	$(CXX) -o $* $*.o $(LDFLAGS)
+
+%:	%.cc
+	@echo Compiling/Linking $*
+	$(CXX) $(CXXFLAGS) -o $* $*.cc $(LDFLAGS)
+
+%:	%.c
+	@echo Compiling/Linking $*
+	$(CC) $(CCFLAGS) -o $* $*.c $(LDFLAGS)
+
+#all:	$(CCTARGETS) $(CTARGETS)
+all:	$(CCTARGETS)
+
+test:
+	@echo CCTargets $(CCTARGETS)
+	@echo CCObjects $(CCOBJECTS)
+
+clean:	
+	@rm -f $(CCOBJECTS) $(CCTARGETS) $(COBJECTS) $(CTARGETS)
+	@echo Cleaned!
+
