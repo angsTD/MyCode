@@ -1,0 +1,56 @@
+# Makefile for FACE Glass Panel Application
+
+.SILENT:
+
+all:
+	echo "BUilding IOServiceLib"     ; cd IOServiceLib;      make;
+	echo "BUilding Simulators"       ; cd Simulators;        make;
+	echo "Building IOServices"       ; cd IOServices;        make;
+	echo "Building TransportServices"; cd TransportServices; make;
+	echo "Building PlatformServices" ; cd PlatformServices;  make;
+	echo "Building the Application"  ; cd Application;       make;
+	@echo Build Complete
+
+clean:
+	echo "Cleaning IOServiceLib"     ; cd IOServiceLib;      make clean;
+	echo "Cleaning Simulators"       ; cd Simulators;        make clean;
+	echo "Cleaning IOServices"       ; cd IOServices;        make clean;
+	echo "Cleaning TransportServices"; cd TransportServices; make clean;
+	echo "Cleaning PlatformServices" ; cd PlatformServices;  make clean;
+	echo "Cleaning the Application"  ; cd Application;       make clean;
+	@echo Clean Complete
+runjpals:
+	echo Running the Application; cd Application; make runjpals
+
+run:
+	#echo "Running IOServiceLib"     ; cd IOServiceLib;      make run;
+	echo "Running Simulators"       ; cd Simulators;        make run;
+	echo "Running IOServices"       ; cd IOServices;        make run;
+	#echo "Running TransportServices"; cd TransportServices; make run;
+	echo "Running PlatformServices" ; cd PlatformServices;  make run;
+	echo "Running the Application"  ; cd Application;       make run;
+	@echo Run Complete
+
+kill:
+	#echo "Killing IOServiceLib"     ; cd IOServiceLib;      make kill;
+	echo "Killing Simulators"       ; cd Simulators;        make kill;
+	echo "Killing IOServices"       ; cd IOServices;        make kill;
+	#echo "Killing TransportServices"; cd TransportServices; make kill;
+	echo "Killing PlatformServices" ; cd PlatformServices;  make kill;
+	echo "Killing the Application"  ; cd Application;       make kill;
+	@echo Kill Complete
+
+linux:
+	cp make.defs.linux make.defs
+	make
+
+linux-nogl:
+	cp make.defs.linux-nogl make.defs
+	make
+
+mac:
+	cp make.defs.mac make.defs
+	make
+mac-nogl:
+	cp make.defs.mac-nogl make.defs
+	make
